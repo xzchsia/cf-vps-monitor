@@ -7,12 +7,12 @@ import { readFileSync } from 'node:fs';
 // 默认安装成功时走 releases/latest，所以分支写错了不会立刻暴露。
 //
 // 2026-09-03 实测：dev 上三个脚本的分支常量都是 `main`，而 dev 的仓库
-// `kadidalax/cf-monitor-test` 没有 main 分支（`git ls-remote --heads` 可核对），
+// `xzchsia/cf-monitor-test` 没有 main 分支（`git ls-remote --heads` 可核对），
 // 拼出的 `.../refs/heads/main.tar.gz` 实测 HTTP 404 ——
 // dev 分支上 `--build-from-source` 是坏的。
 //
 // 为什么此前没被发现：前端 `agentInstallCommand.ts` 是**推导**的
-//   CF_MONITOR_BRANCH = REPOSITORY === 'kadidalax/cf-monitor-test' ? 'dev' : 'main'
+//   CF_MONITOR_BRANCH = REPOSITORY === 'xzchsia/cf-monitor-test' ? 'dev' : 'main'
 // 且有测试覆盖，所以后台展示的安装命令一直取 dev；而脚本内部是**硬编码**，
 // 没有任何测试，两处于是各说各话。
 //
@@ -21,7 +21,7 @@ import { readFileSync } from 'node:fs';
 
 /** 前端 `agentInstallCommand.ts` 的规则：测试仓库用 dev，其余用 main。 */
 function expectedBranchFor(repository) {
-  return repository === 'kadidalax/cf-monitor-test' ? 'dev' : 'main';
+  return repository === 'xzchsia/cf-monitor-test' ? 'dev' : 'main';
 }
 
 /** 从源码里取出形如 `NAME="value"` 或 `$name = "value"` 的常量值。 */
